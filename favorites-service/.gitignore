@@ -2,7 +2,7 @@
 /dist
 /node_modules
 .env
-/prisma/dev.db
+dev.db
 
 # Logs
 logs

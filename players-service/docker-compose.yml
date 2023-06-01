@@ -4,7 +4,7 @@ services:
   app:
     build: .
     entrypoint: .docker/entrypoint.sh
-    container_name: micro-1
+    container_name: players
     ports:
       - '3000:3000'
       - '5566:5555'

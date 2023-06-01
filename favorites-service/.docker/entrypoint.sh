@@ -1,5 +1,7 @@
 #!/bin/bash
-
+ 
 npm install
 npm run build
-npm run start:dev
+# comando para executar a migração do banco
+npx prisma migrate dev
+npm run start

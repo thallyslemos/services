@@ -1,5 +1,6 @@
 import { PrismaService } from './prisma.service';
 const prisma = new PrismaService();
+// novo vaminho do avatar para imagens armazenadas na api
 async function main() {
   await prisma.players.upsert({
     where: {
@@ -10,7 +11,7 @@ async function main() {
       name: 'Niko',
       team: 'Faze Clan',
       score: '95',
-      avatar: '/static/media/1_niko.c9c1ab2a4291b1e21cb4.png',
+      avatar: 'img/1_niko.png',
     },
   });
   await prisma.players.upsert({
@@ -22,7 +23,7 @@ async function main() {
       name: 'Rain',
       team: 'Faze Clan',
       score: '95',
-      avatar: '/static/media/2_rain.12542689d4a15eba7d39.png',
+      avatar: 'img/2_rain.png',
     },
   });
 
@@ -35,7 +36,7 @@ async function main() {
       name: 'Fer',
       team: 'Sk Gaming',
       score: '92',
-      avatar: '/static/media/3_fer.6d9c0fd005680f96b6fc.png',
+      avatar: 'img/3_fer.png',
     },
   });
 
@@ -48,7 +49,7 @@ async function main() {
       name: 'Coldzera',
       team: 'Sk Gaming',
       score: '90',
-      avatar: '/static/media/4_cold.dd10de07da27b211fa84.png',
+      avatar: 'img/4_cold.png',
     },
   });
   await prisma.players.upsert({
@@ -60,7 +61,7 @@ async function main() {
       name: 'Fallen',
       team: 'Sk Gaming',
       score: '85',
-      avatar: '/static/media/6_shox.f74760cf70886238a883.png',
+      avatar: 'img/6_shox.png',
     },
   });
   await prisma.players.upsert({
@@ -72,7 +73,7 @@ async function main() {
       name: 'Shox',
       team: 'G2',
       score: '85',
-      avatar: '/static/media/6_shox.f74760cf70886238a883.png',
+      avatar: 'img/6_shox.png',
     },
   });
   await prisma.players.upsert({
@@ -84,7 +85,7 @@ async function main() {
       name: 'Dupreeh',
       team: 'Astralis',
       score: '87',
-      avatar: '/static/media/7_dupreeh.a3f817b72db9fb43b11b.png',
+      avatar: 'img/7_dupreeh.png',
     },
   });
 
@@ -97,7 +98,7 @@ async function main() {
       name: 'Boltz',
       team: 'Sk Gaming',
       score: '87',
-      avatar: '/static/media/8_boltz.d5ddbd4ac00b4849ab04.png',
+      avatar: 'img/8_boltz.png',
     },
   });
   await prisma.players.upsert({
@@ -109,7 +110,7 @@ async function main() {
       name: 'Gla1ve',
       team: 'Faze Clan',
       score: '81',
-      avatar: '/static/media/9_gla1ve.caffa8a0e5fcafefc13a.png',
+      avatar: 'img/9_gla1ve.png',
     },
   });
   await prisma.players.upsert({
@@ -121,7 +122,7 @@ async function main() {
       name: 'Xyp9x',
       team: 'Astralis',
       score: '81',
-      avatar: '/static/media/10_xyp9x.bcd7e9a3703ae9b6e63a.png',
+      avatar: 'img/10_xyp9x.png',
     },
   });
   await prisma.players.upsert({
@@ -133,7 +134,7 @@ async function main() {
       name: 'Taco',
       team: 'Sk Gaming',
       score: '74',
-      avatar: '/static/media/11_taco.147bbae7fbb02515ae3d.png',
+      avatar: 'img/11_taco.png',
     },
   });
 
@@ -146,7 +147,7 @@ async function main() {
       name: 'Dev1ce',
       team: 'Astralis',
       score: '80',
-      avatar: '/static/media/12_dev1ce.c214341aed3dd6a28ea7.png',
+      avatar: 'img/12_dev1ce.png',
     },
   });
   await prisma.players.upsert({
@@ -158,7 +159,7 @@ async function main() {
       name: 'Karrigan',
       team: 'Faze Clan',
       score: '78',
-      avatar: '/static/media/13_karrigan.5b986313fa305c44ce01.png',
+      avatar: 'img/13_karrigan.png',
     },
   });
   await prisma.players.upsert({
@@ -170,7 +171,7 @@ async function main() {
       name: 'Apex',
       team: 'G2',
       score: '86',
-      avatar: 'static/media/14_Apex.81fbdd2300fd78c9a061.png',
+      avatar: 'img/14_Apex.png',
     },
   });
   await prisma.players.upsert({
@@ -182,7 +183,7 @@ async function main() {
       name: 'Rez',
       team: 'Ninja in Pyjamas',
       score: '90',
-      avatar: '/static/media/15_rez.b5e5edd278eca87e8fc2.png',
+      avatar: 'img/15_rez.png',
     },
   });
 }

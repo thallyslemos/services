@@ -3,8 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { Players, PrismaClient } from '@prisma/client';
+import { Response, response } from 'express';
 
-const fakePlayers = [
+const fakePlayers: Players[] = [
   {
     id: 1,
     name: 'Niko',
@@ -121,10 +123,16 @@ const PrismaMock = {
     delete: jest.fn(),
   },
 };
+const mockResponse = () => {
+  const res = response;
+
+  return res;
+};
 
 @Module({
   controllers: [AppController],
   providers: [AppService, PrismaService],
+  imports: [PrismaClient],
 })
 export class AppModuleTest {}
 
@@ -135,7 +143,7 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModuleTest],
+      imports: [AppModuleTest, PrismaClient],
     }).compile();
 
     appController = moduleFixture.get<AppController>(AppController);
@@ -144,15 +152,48 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    // Verificação dos componentes do módulo
+    it('should be defined"', () => {
+      expect(appController).toBeDefined();
+      expect(service).toBeDefined();
+      expect(prisma).toBeDefined();
     });
   });
+  //teste da rota raíz retornando o nome da aplicação
+  it('should return "ProPlayers Service"', () => {
+    expect(appController.getHello()).toBe('ProPlayers Service');
+  });
+  //teste da rota '/players' que deve retornar um array com todos os jogadores
   describe('getAllPlayers', () => {
-    it('should retunr an array whit all players', async () => {
-      const response = await service.getPlayers();
+    it('should return an array with all players', async () => {
+      const response = await appController.getAll();
+      const mock = await PrismaMock.player.findMany();
 
-      expect(response).toEqual(fakePlayers);
+      //verifica se um elemento do array mockado está presente na resposta
+      expect(response).toContainEqual(fakePlayers.at(1));
+      // verifica se o retorno da rota é igual aos dados mockados
+      expect(response).toEqual(mock);
+      // verifica se o tipo da resposta é um objeto
+      expect(typeof response).toEqual('object');
+      // verifica se a função foi chamada exatamente uma vez
+      expect(PrismaMock.player.findMany).toBeCalledTimes(1);
+    });
+  });
+  //teste da rota '/img/nomeDaImagem' que deve retornar o avatar do jogador
+  describe('getImage', () => {
+    it('should return the image', () => {
+      const res: Partial<Response> = {
+        sendFile: jest.fn(),
+      };
+
+      const response = appController.getImage('/1_niko.png', res as Response);
+      // verifica se o retorno é o código 200, para o status de requisição 'OK'
+      console.log(response);
+      expect(response).toBe(200);
+      // cerifica se a requisição retorna corretamente o caminho do arquivo solicitado
+      expect(res.sendFile).toHaveBeenCalledWith(
+        '/home/node/app/src/img/1_niko.png',
+      );
     });
   });
 });

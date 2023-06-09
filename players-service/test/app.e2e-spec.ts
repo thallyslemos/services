@@ -14,11 +14,25 @@ describe('AppController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
   });
-
+  //Teste rota raíz
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect('ProPlayers Service');
+  });
+  //Teste rota players
+  it('/players (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/players')
+      .expect(200)
+      .expect(Object);
+  });
+  //Teste rota de imagens
+  it('/img/imageName (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/img/1_niko.png')
+      .expect(200)
+      .expect(undefined);
   });
 });

@@ -5,10 +5,11 @@ import {
   Get,
   Param,
   Post,
-  Put,
+  Res,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FavoriteDTO } from './dto/create-favorite.dto';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -22,12 +23,16 @@ export class AppController {
   getAll(): Promise<any> {
     return this.appService.getFavorites();
   }
-  @Post('create-favorite') 
+  @Post('create-favorite')
   saveFavorite(@Body() favorite: FavoriteDTO): Promise<any> {
     return this.appService.saveFavorite(favorite);
   }
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.appService.removeFavorite(+id);
+  }
+  @Get('img/:imageName')
+  getImage(@Param('imageName') imageName: string, @Res() res: Response) {
+    return this.appService.getImage(imageName, res);
   }
 }

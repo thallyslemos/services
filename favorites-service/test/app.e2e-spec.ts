@@ -15,10 +15,44 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
+  // Rota raíz
   it('/ (GET)', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect('ProPlayers Favorites Service');
+  });
+
+  //Teste rota favorites
+  it('/favorites (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/favorites')
+      .expect(200)
+      .expect(Object);
+  });
+  //Teste rota fcreate-avorite
+  it('/fcreate-favorite (POST)', () => {
+    const favoriteDTO = {
+      id: 25,
+      name: 'Faldldden',
+      team: 'Sk Gaming',
+      score: '85',
+      avatar: 'img/6_shox.png',
+    };
+    return request(app.getHttpServer())
+      .post('/create-favorite')
+      .send(favoriteDTO)
+      .expect(201);
+  });
+  //Teste rota de imagens
+  it('/img/imageName (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/img/1_niko.png')
+      .expect(200)
+      .expect(undefined);
+  });
+  // Rota delete
+  it('/ (DELETE)', () => {
+    return request(app.getHttpServer()).delete('/25').expect(200);
   });
 });

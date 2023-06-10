@@ -1,12 +1,20 @@
-import { ConflictException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'prisma/prisma.service';
+import {
+  ConflictException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { FavoriteDTO } from './dto/create-favorite.dto';
+import { existsSync } from 'fs';
+import { join } from 'path';
+import { Response } from 'express';
 
 @Injectable()
 export class AppService {
   constructor(private prisma: PrismaService) {}
   getHello(): string {
-    return 'Hello World!';
+    return 'ProPlayers Favorites Service';
   }
 
   async getFavorites(): Promise<any> {
@@ -65,5 +73,15 @@ export class AppService {
       favoriteExists = true;
     }
     return favoriteExists;
+  }
+  getImage(imageName: string, res: Response) {
+    const imagePath = join(__dirname.replace('/dist', ''), 'img', imageName);
+
+    if (!existsSync(imagePath)) {
+      throw new NotFoundException(`Image ${imageName} not found`);
+    }
+    res.sendFile(imagePath);
+
+    return HttpStatus.OK;
   }
 }

@@ -123,11 +123,6 @@ const PrismaMock = {
     delete: jest.fn(),
   },
 };
-const mockResponse = () => {
-  const res = response;
-
-  return res;
-};
 
 @Module({
   controllers: [AppController],
@@ -167,12 +162,11 @@ describe('AppController', () => {
   describe('getAllPlayers', () => {
     it('should return an array with all players', async () => {
       const response = await appController.getAll();
+      const { players } = response;
       const mock = await PrismaMock.player.findMany();
 
-      //verifica se um elemento do array mockado está presente na resposta
-      expect(response).toContainEqual(fakePlayers.at(1));
       // verifica se o retorno da rota é igual aos dados mockados
-      expect(response).toEqual(mock);
+      expect(players).toEqual(mock);
       // verifica se o tipo da resposta é um objeto
       expect(typeof response).toEqual('object');
       // verifica se a função foi chamada exatamente uma vez

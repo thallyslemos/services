@@ -16,10 +16,24 @@ export class AppService {
     return 'ProPlayers Service';
   }
 
-  async getPlayers(): Promise<any> {
-    const players = await this.prisma.players.findMany();
+  async getPlayers(params: { skip?: number; take?: number }): Promise<any> {
+    const { skip, take } = params;
+    const count = await this.prisma.players.count();
+    let players;
+    if (isNaN(skip) && isNaN(take)) {
+      players = await this.prisma.players.findMany({});
+    } else if (isNaN(skip)) {
+      players = await this.prisma.players.findMany({
+        take,
+      });
+    } else {
+      players = await this.prisma.players.findMany({
+        skip,
+        take,
+      });
+    }
 
-    return players;
+    return { players, count };
   }
 
   getImage(imageName: string, res: Response) {

@@ -31,7 +31,7 @@ describe('AppController (e2e)', () => {
       .expect(Object);
   });
   //Teste rota fcreate-avorite
-  it('/fcreate-favorite (POST)', () => {
+  it('/create-favorite (POST)', () => {
     const favoriteDTO = {
       id: 25,
       name: 'Faldldden',
